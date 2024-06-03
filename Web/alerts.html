@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Cấu hình ngưỡng cảnh báo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="button">Trang Chủ</a>
+        <a href="dashboard.html" class="button">Xem Dashboard</a>
+    </div>
+    <div class="container">
+        <h2>Cấu hình ngưỡng cảnh báo</h2>
+        <button id="addAlertBtn" onclick="showAlertForm()">Thêm ngưỡng cảnh báo</button>
+        <div id="alertModal">
+            <form id="alertForm">
+                <label for="botToken">Bot Token</label>
+                <input type="text" id="botToken" name="botToken" required>
+                <label for="chatId">Chat ID</label>
+                <input type="text" id="chatId" name="chatId" required>
+                <label for="indicator">Loại chỉ báo</label>
+                <select id="indicator" name="indicator" required>
+                    <option value="">Chọn chỉ số</option>
+                    <option value="OBV">OBV</option>
+                    <option value="EMA">EMA</option>
+                    <option value="AD">A/D</option>
+                    <option value="RSI">RSI</option>
+                    <option value="RS">RS</option>
+                </select>
+                <label for="thresholdValue">Giá trị ngưỡng</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="thresholdValue" name="thresholdValue" required>
+                    <select id="thresholdUnit" name="thresholdUnit" required>
+                        <option value="o"></option>
+                        <option value="k">nghìn</option>
+                        <option value="m">triệu</option>
+                        <option value="b">tỉ</option>
+                    </select>
+                </div>
+                <label for="scanInterval">Khoảng thời gian quét</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="scanInterval" name="scanInterval" required>
+                    <select id="intervalUnit" name="intervalUnit" required>
+                        <option value="s">giây</option>
+                        <option value="m">phút</option>
+                        <option value="h">giờ</option>
+                    </select>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <button type="button" onclick="createAlert()">Tạo</button>
+                    <button type="button" onclick="hideAlertForm()" style="background-color: #e74c3c;">Hủy</button>
+                </div>
+
+            </form>
+        </div>
+        <h2>Danh sách ngưỡng đã đặt</h2>
+        <table id="alertsTable">
+            <thead>
+                <tr>
+                    <th>Bot Token</th>
+                    <th>Chat ID</th>
+                    <th>Loại chỉ báo</th>
+                    <th>Giá trị ngưỡng</th>
+                    <th>Khoảng thời gian quét</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Đây là nơi dữ liệu sẽ được chèn -->
+            </tbody>
+        </table>
+    </div>
+    <script src="scripts.js" defer>;
+            window.onload = loadAlerts;
+    </script>
+</body>
+</html>
