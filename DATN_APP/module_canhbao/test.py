@@ -1,23 +1,22 @@
-from telegram import Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+import requests
+from kafka import KafkaProducer
+import json
+from datetime import datetime
 
-def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Hello!')
+# Kafka producer với thông tin xác thực
+producer = KafkaProducer(
+    bootstrap_servers='10.165.24.28:32482,10.165.24.31:30924,10.165.24.33:30102',
+    value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+    sasl_mechanism='PLAIN',
+    security_protocol='SASL_PLAINTEXT',
+    sasl_plain_username='admin',
+    sasl_plain_password='adminKafka2021'
+)
 
-def main() -> None:
-    # Replace 'YOUR_TOKEN_HERE' with your actual bot token
-    updater = Updater('6986477283:AAGSHexC87o1S8olQc88UqHNZklzL4zlZ88', use_context=True)
+record = {
+    'ngay': f'{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}',
+    'thang': '6',
+    'nam': 'Hai Khong Hai Tu'
+}
 
-    dispatcher = updater.dispatcher
-
-    # on different commands - answer in Telegram
-    dispatcher.add_handler(CommandHandler("start", start))
-
-    # Start the Bot
-    updater.start_polling()
-
-    # Run the bot until you press Ctrl-C or the process receives SIGINT, SIGTERM or SIGABRT
-    updater.idle()
-
-if __name__ == '__main__':
-    main()
+producer.send('ban_ghi', value=record)

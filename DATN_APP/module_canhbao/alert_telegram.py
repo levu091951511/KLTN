@@ -16,7 +16,6 @@ def kiemtra_nguong(value1, giatringuong):
 
 def process_data(data):
     for item in data['nguongcanhbao']:
-        print(item['LoaiChiBao'])
         if item['LoaiChiBao'] not in ['c', 'o', 'h', 'l', 'v']:
             try:
                 # Xử lý request cho trường hợp loại chỉ báo khác
