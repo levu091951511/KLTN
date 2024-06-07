@@ -5,7 +5,7 @@ from telegram import Update
 
 def request_api(url):
     response = requests.get(url)
-    print(response)
+    
     data = response.json()
     return data
 
